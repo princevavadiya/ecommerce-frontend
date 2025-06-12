@@ -8,5 +8,5 @@ const Title = ({ text1, text2 }) => {
     </div>
   )
 }
-
+ 
 export default Title
