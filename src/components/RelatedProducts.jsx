@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from 'react'
 import { ShopContext } from '../context/ShopContext'
 import Title from './Title'
 import ProductItem from './ProductItem'
+import Loader from './Loader'
 
 const RelatedProducts = ({ category, subCategory }) => {
   const { products } = useContext(ShopContext)
@@ -16,8 +17,9 @@ const RelatedProducts = ({ category, subCategory }) => {
     }
   }, [products])
 
-
   return (
+    
+    products?
     <div className='my-24'>
       <div className='text-center text-3xl py-2'>
         <Title text1={'RELATED'} text2={'PRODUCTS'} />
@@ -30,6 +32,7 @@ const RelatedProducts = ({ category, subCategory }) => {
         }
       </div>
     </div>
+  :<Loader/>
   )
 }
 

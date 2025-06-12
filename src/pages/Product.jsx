@@ -3,11 +3,12 @@ import { useParams } from 'react-router'
 import { ShopContext } from '../context/ShopContext';
 import { assets } from '../assets/frontend_assets/assets';
 import RelatedProducts from '../components/RelatedProducts';
+import Loader from '../components/Loader';
 
 const Product = () => {
 
   const { productId } = useParams();
-  const { products, currency, addToCart } = useContext(ShopContext)
+  const { products, currency, addToCart, loading } = useContext(ShopContext)
   const [productData, setProductData] = useState(false)
   const [image, setlmage] = useState('')
   const [size, setSize] = useState('')
@@ -24,10 +25,10 @@ const Product = () => {
 
   useEffect(() => {
     fetchProductData();
-  }, [productId])
+  }, [productId, products])
 
 
-
+  if (loading) return <Loader />
   return productData ? (
     <div className='border-t-2 pt-10 transition-opacity ease-in duration-500 opacity-100'>
       {/*  product data  */}

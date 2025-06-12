@@ -4,11 +4,13 @@ import { useNavigate } from "react-router";
 import axios from "axios";
 
 
+
 export const ShopContext = createContext();
 
 const ShopContextProvider = (props) => {
 
   const currency = '$';
+  const [loading, setLoading] = useState(false)
   const delivery_fee = 10;
   const backendUrl = import.meta.env.VITE_BACKEND_URL
   const [search, setSearch] = useState("");
@@ -118,12 +120,15 @@ const ShopContextProvider = (props) => {
 
   const getProductsData = async () => {
     try {
+      setLoading(true)
       const response = await axios.get(backendUrl + '/api/product/list');
       if (response.data) {
         setProducts(response.data.products)
+        setLoading(false)
       }
       else {
         toast.error(response.data.message)
+        setLoading(false)
       }
 
 
@@ -131,6 +136,10 @@ const ShopContextProvider = (props) => {
     catch (error) {
       console.log(error);
       toast.error(error.message);
+      setLoading(false)
+
+
+
     }
   }
 
@@ -163,7 +172,7 @@ const ShopContextProvider = (props) => {
 
   const value = {
     products, currency, delivery_fee,
-    search, setSearch, showSearch, setShowSearch, addToCart, cartItems, getCartCount, updateQuantity, getCartAmount, navigate, backendUrl, token, setToken, setCartItems
+    search, setSearch, showSearch, setShowSearch, addToCart, cartItems, getCartCount, updateQuantity, getCartAmount, navigate, backendUrl, token, setToken, setCartItems, loading
   }
 
 

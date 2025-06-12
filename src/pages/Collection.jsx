@@ -3,9 +3,11 @@ import { ShopContext } from "../context/ShopContext"
 import { assets } from "../assets/frontend_assets/assets"
 import Title from "../components/Title"
 import ProductItem from "../components/ProductItem"
+import Loader from "../components/Loader"
+
 
 function Collection() {
-  const { products, search, showSearch } = useContext(ShopContext)
+  const { products, search, showSearch, loading } = useContext(ShopContext)
   const [showFilter, setShowFilter] = useState(false)
   const [filterProducts, setFilterProducts] = useState([])
   const [category, setCategory] = useState([]);
@@ -73,6 +75,8 @@ function Collection() {
   useEffect(() => {
     setFilterProducts(products)
 
+    setFilterProducts(products)
+
   }, [products])
 
   useEffect(() => {
@@ -82,11 +86,12 @@ function Collection() {
 
 
   useEffect(() => {
-    sortProduct();
+    sortProduct()
   }, [sortType])
 
-
+  if (loading) return <Loader />
   return (
+
     <div className="flex flex-col sm:flex-row gap-1  sm:gap-10 pt-10 border-t">
       {/* filter Options  */}
       <div className="min-w-60">
