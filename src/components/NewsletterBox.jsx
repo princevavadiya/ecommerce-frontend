@@ -32,7 +32,7 @@ const NewsletterBox = () => {
       <p className='text-gray-400 mt-3 '>
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos sequi earum corrupti, nemo in, provident ipsam magni .
       </p>
-      <form onSubmit={sendEmail} className='w-full sm:w-1/2 flex items-center gap-3 mx-auto my-6 border pl-3 ' >
+      <form onSubmit={handleSubmit} className='w-full sm:w-1/2 flex items-center gap-3 mx-auto my-6 border pl-3 ' >
         <input   onChange={handleChange}
         className='w-full sm:flex-1 outline-none ' type="email" name="" id="" placeholder='Enter your email' required />
         <button  className='bg-black text-white text-xs px-10 py-4 ' type='submit'>SUBSCRIBE</button>
