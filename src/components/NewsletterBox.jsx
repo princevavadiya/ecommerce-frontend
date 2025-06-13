@@ -26,13 +26,14 @@ const NewsletterBox = () => {
     e.preventDefault();
 
     try {
-      await axios.post("http://localhost:5000/send-mail", formData);
+      await axios.post("https://e-commerce-backend-6892.vercel.app/send-mail", formData);
       toast.success("Mail sent successfully!");
 
 
     } catch (error) {
       console.error(error);
       toast.error("Failed to send mail");
+     
 
     }
   };

@@ -17,6 +17,8 @@ import { ToastContainer } from 'react-toastify';
 import PlaceOrder from './pages/PlaceOrder'
 import Verify from './pages/Verify'
 import Loader from './components/Loader'
+import ForgetPassword from './pages/ForgetPassword'
+import ResetPassword from './pages/ResetPassword'
 function App() {
 
   return (
@@ -36,6 +38,8 @@ function App() {
           <Route path="/orders" element={<Orders />} />
           <Route path="/verify" element={<Verify />} />
           <Route path='/loader' element={<Loader />} />
+          <Route path='/forget-password' element={<ForgetPassword/>}/>
+          <Route path='/reset-password' element={<ResetPassword/>}/>
         </Route>
 
       </Routes>
