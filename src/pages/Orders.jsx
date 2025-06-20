@@ -4,15 +4,24 @@ import Title from '../components/Title'
 import axios from 'axios'
 
 const Orders = () => {
-  const { token, backendUrl, currency } = useContext(ShopContext)
+  const { token, backendUrl, currency, navigate } = useContext(ShopContext)
   const [orderData, setOrderData] = useState([])
   const loadOrderData = async () => {
     try {
+
       if (!token) {
-        return null;
+        return navigate("/login");
       }
       const response = await axios.post(backendUrl + '/api/order/userorders', {}, { headers: { token } })
-      if (response.data.success) {
+
+
+      if (error.response?.status === 401) {
+
+        localStorage.removeItem("token");
+        navigate("/login");
+      }
+
+      else if (response.data.success) {
         const allOrdersItem = []
         response.data.orders.map((order) => {
           order.items.map((item) => {

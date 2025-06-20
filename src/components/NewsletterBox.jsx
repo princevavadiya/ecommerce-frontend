@@ -14,6 +14,7 @@ const NewsletterBox = () => {
 
     email: ""
 
+
   });
 
   const handleChange = (e) => {
@@ -33,7 +34,7 @@ const NewsletterBox = () => {
     } catch (error) {
       console.error(error);
       toast.error("Failed to send mail");
-     
+
 
     }
   };
@@ -55,3 +56,5 @@ const NewsletterBox = () => {
 }
 
 export default NewsletterBox
+
+

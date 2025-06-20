@@ -1,9 +1,11 @@
 import React from 'react'
 import { assets } from '../assets/frontend_assets/assets'
+import { Link } from 'react-router'
 
 const Footer = () => {
-  return (
-    <div>
+  return (<div>
+
+    <div className='px-4  sm:px-[5vw] md:px-[7vw] lg:px-[9vw]'>
       <div className='flex flex-col sm:grid grid-cols-[3fr_1fr_1fr] gap-14 my-10 mt-40 text-sm '>
         <div>
           <img src={assets.logo} className='mb-5 w-32 ' alt="" />
@@ -15,10 +17,18 @@ const Footer = () => {
         <div>
           <p className='text-xl font-medium mb-5 '>COMPANY</p>
           <ul className='flex flex-col gap-1 text-gray-600 '>
-            <li>Home</li>
-            <li>About us</li>
-            <li>Delivery</li>
-            <li>Privacy policy </li>
+            <Link to='/'>
+              <li>Home</li>
+            </Link>
+            <Link to={'/about'}>
+              <li>About us</li>
+            </Link>
+            <Link to={'/orders'}>
+              <li>Delivery</li>
+            </Link>
+            <Link to={'/contact'}>
+              <li>Privacy policy </li>
+            </Link>
           </ul>
         </div>
 
@@ -32,12 +42,13 @@ const Footer = () => {
         </div>
       </div>
 
-      <div>
+      <div className=''>
         <hr />
-        <p className='py-5 text-sm text-center'>Copyright 2024@forever.com -All Right Reserved </p>
 
       </div>
     </div>
+    <p className='py-5 text-sm text-center text-white bg-gray-800'>Copyright 2024@forever.com -All Right Reserved </p>
+  </div>
   )
 }
 

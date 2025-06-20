@@ -1,17 +1,27 @@
-import React, { useContext, useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { useParams } from 'react-router'
 import { ShopContext } from '../context/ShopContext';
 import { assets } from '../assets/frontend_assets/assets';
 import RelatedProducts from '../components/RelatedProducts';
 import Loader from '../components/Loader';
 
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import IconButton from '@mui/material/IconButton';
+import { toast } from 'react-toastify';
+import axios from 'axios';
+
+
+
+
 const Product = () => {
 
   const { productId } = useParams();
-  const { products, currency, addToCart, loading } = useContext(ShopContext)
+  const { products, currency, addToCart, loading, backendUrl, token } = useContext(ShopContext)
   const [productData, setProductData] = useState(false)
   const [image, setlmage] = useState('')
   const [size, setSize] = useState('')
+
+
 
   const fetchProductData = async () => {
     products.map((item) => {
@@ -27,8 +37,43 @@ const Product = () => {
     fetchProductData();
   }, [productId, products])
 
+  const userId = localStorage.getItem("userId")
 
-  if (loading) return <Loader />
+  const addTowishList = async () => {
+    try {
+
+      const response = await axios.post(`${backendUrl}/api/product/wishlist/${productId}`, { userId }, { headers: { token } })
+      console.log(productId,":::productId")
+      console.log(userId,"::::userId")
+      console.log(response)
+      if (response.status === 200) {
+        toast.success("Product Added to Wishlist Successfully")
+      }
+
+
+
+    } catch (error) {
+      console.log(error)
+
+      if (error.response && error.response.status === 409) {
+        toast.success('product alreaday in Wishlist')
+
+      }
+      else {
+        toast.error('Getting error while adding product into wishlist')
+
+      }
+
+    }
+  }
+
+
+
+
+
+
+
+  if (loading) return <Loader/>
   return productData ? (
     <div className='border-t-2 pt-10 transition-opacity ease-in duration-500 opacity-100'>
       {/*  product data  */}
@@ -61,7 +106,7 @@ const Product = () => {
             <p className='pl-2'>(122)</p>
 
           </div>
-          <p className='mt-5 text-3xl font-medium'>{currency}{productData.price}</p>
+          <p className='mt-5 text-3xl font-medium'>{productData.price}{currency}</p>
           <p className='mt-5 text-gray-500 md:w-4/5'>{productData.description}</p>
           <div className='flex flex-col gap-4 my-8 '>
             <p> Select Size </p>
@@ -73,7 +118,17 @@ const Product = () => {
               }
             </div>
           </div>
-          <button onClick={() => addToCart(productData._id, size)} className='bg-black text-white px-8 py-3 text-sm active:bg-gray-700 '>ADD TO CART</button>
+          <div className='flex gap-2 items-center'>
+            <button onClick={() => addToCart(productData._id, size)} className='bg-black text-white px-8 py-3 text-sm active:bg-gray-700 '>ADD TO CART</button>
+
+
+            <IconButton onClick={addTowishList} sx={{ color: "red", }}>
+              <FavoriteIcon sx={{ fontSize: 35 }} />
+            </IconButton>
+
+          </div>
+
+
           <hr className='mt-8 sm:w-4/5  ' />
           <div className='text-sm text-gray-500 mt-5  flex flex-col gap-1  '>
             <p>100% Original Products</p>
@@ -104,7 +159,7 @@ const Product = () => {
 
       <RelatedProducts category={productData.category} subCategory={productData.subCategory} />
 
-    </div>
+    </div >
   ) : <div className='opacity-0'></div>
 }
 

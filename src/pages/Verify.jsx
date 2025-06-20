@@ -25,6 +25,7 @@ const Verify = () => {
         setCartItems({})
         navigate('/orders')
       } else {
+
         navigate("/cart")
       } 
 
